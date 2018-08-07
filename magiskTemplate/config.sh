@@ -107,7 +107,7 @@ move_files() {
     filepath=${pathtofile%/*}
     if [ -f "$MODPATH/$sourceFile" ]; then
       mkdir -p $MODPATH/$filepath
-      mv $MODPATH/$sourceFile $MODPATH/$pathtofile
+      mv -f $MODPATH/$sourceFile $MODPATH/$pathtofile
     fi
 	done < $INSTALLER/common/list_of_moving_files
 }
