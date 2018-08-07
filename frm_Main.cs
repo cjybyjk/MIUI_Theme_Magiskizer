@@ -191,11 +191,14 @@ namespace MIUI_Theme_Magiskizer
                 if (File.Exists(toDic + @"\description.xml") )
                 {
                     lblStatus.Text = "读取信息...";
-                    string title = GetNodeText(toDic, "title");
-                    string author = GetNodeText(toDic, "author");
+                    string title = System.Text.RegularExpressions.Regex.Replace(
+                        GetNodeText(toDic, "title"), "[<>/\\|:\"*?]","_");
+                    string author = System.Text.RegularExpressions.Regex.Replace(
+                        GetNodeText(toDic, "author"), "[<>/\\|:\"*?]", "_");
                     if (txtVersion.Text == "") txtVersion.Text = GetNodeText(toDic, "version");
-                    if (txtDescription.Text == "") txtDescription.Text = GetNodeText(toDic, "description");
-
+                    if (txtDescription.Text == "") txtDescription.Text =
+                        System.Text.RegularExpressions.Regex.Replace(
+                            GetNodeText(toDic, "description"),"[\r\n\t]","");
                     if (Directory.Exists(toDic + @"\preview"))
                         KillDir(toDic + @"\preview");
                     File.Delete(toDic + @"\description.xml");
@@ -232,14 +235,11 @@ namespace MIUI_Theme_Magiskizer
         private void btnRemove_Click(object sender, EventArgs e)
         {
             if (lstThemes.SelectedItem == null) return;
+            KillDir(themePath + lstThemes.SelectedItem.ToString());
             lstThemes.Items.Remove(lstThemes.SelectedItem);
             lstModules.Items.Clear();   
         }
 
-        private void lstModuleAdd_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void frm_Main_Load(object sender, EventArgs e)
         {
@@ -256,6 +256,11 @@ namespace MIUI_Theme_Magiskizer
 
             Directory.CreateDirectory(magiskThemePath);
             Directory.CreateDirectory(themePath);
+        }
+
+        private void frm_Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            KillDir(tmpPath); 
         }
     }
 }

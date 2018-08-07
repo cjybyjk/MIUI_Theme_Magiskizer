@@ -88,7 +88,6 @@
             resources.ApplyResources(this.lstModuleAdd, "lstModuleAdd");
             this.lstModuleAdd.Name = "lstModuleAdd";
             this.lstModuleAdd.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstModuleAdd.SelectedIndexChanged += new System.EventHandler(this.lstModuleAdd_SelectedIndexChanged);
             // 
             // btnAddModule
             // 
@@ -212,6 +211,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frm_Main";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Main_FormClosing);
             this.Load += new System.EventHandler(this.frm_Main_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
