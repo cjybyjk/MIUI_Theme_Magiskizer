@@ -109,5 +109,5 @@ move_files() {
       mkdir -p $MODPATH/$filepath
       mv $MODPATH/$sourceFile $MODPATH/$pathtofile
     fi
-	done < ./common/list_of_moving_files
+	done < $INSTALLER/common/list_of_moving_files
 }
