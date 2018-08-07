@@ -1,0 +1,3 @@
+wallpaper/default_wallpaper.jpg -> system/media/wallpaper/wallpaper_99.jpg
+wallpaper/default_lock_wallpaper.jpg -> system/media/lockscreen/lockscreen_99.jpg
+bootanimation -> system/media/bootanimation.zip
