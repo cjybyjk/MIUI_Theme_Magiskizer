@@ -170,6 +170,7 @@ namespace MIUI_Theme_Magiskizer
                 progressBar.Value = 0;
                 btnGenerate.Enabled = true;
             });
+            saveFile.FileName = "";
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -224,6 +225,7 @@ namespace MIUI_Theme_Magiskizer
                 progressBar.Value = 0;
                 btnAdd.Enabled = true;
             });
+            openFile.FileName = "";
             
         }
 
