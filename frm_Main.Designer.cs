@@ -41,7 +41,6 @@
             this.lblText2 = new System.Windows.Forms.Label();
             this.txtModuleAuthor = new System.Windows.Forms.TextBox();
             this.btnGenerate = new System.Windows.Forms.Button();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblText3 = new System.Windows.Forms.Label();
             this.lblText4 = new System.Windows.Forms.Label();
@@ -52,6 +51,7 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.lblText7 = new System.Windows.Forms.Label();
             this.txtVersion = new System.Windows.Forms.TextBox();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // lstThemes
@@ -88,6 +88,7 @@
             resources.ApplyResources(this.lstModuleAdd, "lstModuleAdd");
             this.lstModuleAdd.Name = "lstModuleAdd";
             this.lstModuleAdd.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstModuleAdd.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstModuleAdd_MouseDoubleClick);
             // 
             // btnAddModule
             // 
@@ -129,11 +130,6 @@
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
-            // 
-            // progressBar
-            // 
-            resources.ApplyResources(this.progressBar, "progressBar");
-            this.progressBar.Name = "progressBar";
             // 
             // lblStatus
             // 
@@ -182,6 +178,11 @@
             // 
             resources.ApplyResources(this.txtVersion, "txtVersion");
             this.txtVersion.Name = "txtVersion";
+            // 
+            // progressBar
+            // 
+            resources.ApplyResources(this.progressBar, "progressBar");
+            this.progressBar.Name = "progressBar";
             // 
             // frm_Main
             // 
@@ -232,7 +233,6 @@
         private System.Windows.Forms.Label lblText2;
         private System.Windows.Forms.TextBox txtModuleAuthor;
         private System.Windows.Forms.Button btnGenerate;
-        private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblText3;
         private System.Windows.Forms.Label lblText4;
@@ -243,6 +243,7 @@
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Label lblText7;
         private System.Windows.Forms.TextBox txtVersion;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

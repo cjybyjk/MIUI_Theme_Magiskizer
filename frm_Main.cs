@@ -23,19 +23,27 @@ namespace MIUI_Theme_Magiskizer
 
         public static void KillDir(string dir)
         {
-            foreach (string d in Directory.GetFileSystemEntries(dir))
+            try
             {
-                if (File.Exists(d))
+                foreach (string d in Directory.GetFileSystemEntries(dir))
                 {
-                    FileInfo fi = new FileInfo(d);
-                    if (fi.Attributes.ToString().IndexOf("ReadOnly") != -1)
-                        fi.Attributes = FileAttributes.Normal;
-                    File.Delete(d);
+                    if (File.Exists(d))
+                    {
+                        FileInfo fi = new FileInfo(d);
+                        if (fi.Attributes.ToString().IndexOf("ReadOnly") != -1)
+                            fi.Attributes = FileAttributes.Normal;
+                        File.Delete(d);
+                    }
+                    else
+                        KillDir(d);
                 }
-                else
-                    KillDir(d);
+                Directory.Delete(dir);
             }
-            Directory.Delete(dir);
+            catch
+            {
+
+            }
+           
         }
 
         public void ListFiles(string sSourcePath)
@@ -141,6 +149,13 @@ namespace MIUI_Theme_Magiskizer
                 txtDescription.Text == "" || txtVersion.Text == "")
             {
                 lblStatus.Text = "错误: 输入信息不完整!";
+                MessageBox.Show("输入信息不完整!","错误",MessageBoxButtons.OK  , MessageBoxIcon.Error);
+                return;
+            }
+            if (lstModuleAdd.Items.Count == 0)
+            {
+                lblStatus.Text = "错误: 不能创建一个空模块!";
+                MessageBox.Show("不能创建一个空模块!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             string fromDic = magiskPath;
@@ -263,6 +278,39 @@ namespace MIUI_Theme_Magiskizer
         private void frm_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             KillDir(tmpPath); 
+        }
+
+        private void editUnit(string unitPath)
+        {
+            TaskFactory factory = new TaskFactory();
+            bool flagExtracted = false;
+            btnAdd.Enabled = false;
+            factory.StartNew(() =>
+            {
+                KillDir(tmpPath + @"\unitTmp");
+                lblStatus.Text = "正在解包组件...";
+                zip.UnpackAll(unitPath, tmpPath + @"\unitTmp", (num) =>
+                {
+                    progressBar.Value = Convert.ToInt32(num);
+                });
+                flagExtracted = true;
+            });
+            while (!flagExtracted) {
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(5);
+            }
+            lblStatus.Text = "完成!";
+            if (Directory.Exists (tmpPath + @"\unitTmp"))
+            {
+                frm_Editor frmEdit = new frm_Editor();
+                frmEdit.Show();
+            }
+        }
+
+        private void lstModuleAdd_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lstModuleAdd.SelectedItems.Count != 1) return;
+            editUnit(magiskThemePath + @"\" + lstModuleAdd.SelectedItems[0].ToString());
         }
     }
 }
