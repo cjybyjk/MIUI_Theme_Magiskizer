@@ -4,4 +4,4 @@ version=%version%
 versionCode=%versionCode%
 author=%author%
 description=%description%
-minMagisk=1500
+minMagisk=17000
