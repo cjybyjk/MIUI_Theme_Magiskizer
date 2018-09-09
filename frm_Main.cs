@@ -97,10 +97,18 @@ namespace MIUI_Theme_Magiskizer
 
         private string GetNodeText(string themeDir,string node)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(themeDir + @"\description.xml");
-            XmlNodeList dd = doc.GetElementsByTagName(node);
-            return dd.Item(0).InnerText;
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(themeDir + @"\description.xml");
+                XmlNodeList dd = doc.GetElementsByTagName(node);
+                return dd.Item(0).InnerText;
+            }
+            catch
+            {
+                return "无法读取 " + node;
+            }
+            
         }
 
         private static string GetTimeStamp()
